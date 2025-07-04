@@ -5,47 +5,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="icon-192x192.png">
-  <meta name="theme-color" content="#34A853"> <title>إدارة راتبي - تطبيقك المالي الذكي</title>
+  <meta name="theme-color" content="#34A853">
+  <title>إدارة راتبي - تطبيقك المالي الذكي</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <style>
-    /* Global Variables and Dark Mode */
     :root {
-      --primary-color: #34A853; /* Vibrant Green */
-      --primary-dark: #2C8C46; /* Darker Green */
-      --accent-color: #4285F4; /* Google Blue */
-      --background-color: #EEF5F9; /* Light Grayish Blue */
-      --card-background: #FFFFFF; /* White */
-      --text-color: #333333; /* Dark Gray */
-      --light-text-color: #666666; /* Medium Gray */
-      --border-color: #E0E0E0; /* Light Gray */
-      --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
-      --border-radius: 16px; /* Larger border-radius for softer look */
+      --primary-color: #34A853;
+      --primary-dark: #2C8C46;
+      --accent-color: #4285F4;
+      --background-color: #EEF5F9;
+      --card-background: #FFFFFF;
+      --text-color: #333333;
+      --light-text-color: #666666;
+      --border-color: #E0E0E0;
+      --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.08);
+      --border-radius: 16px;
       --input-border-radius: 10px;
       --button-padding: 14px 20px;
       --transition-speed: 0.3s ease;
     }
 
-    body.dark-mode {
-      --background-color: #1A1A2E; /* Dark Blue-Purple */
-      --card-background: #2D2D44; /* Darker Blue-Purple */
+    :root.dark-mode {
+      --background-color: #1A1A2E;
+      --card-background: #2D2D44;
       --text-color: #E0E0E0;
       --light-text-color: #AAAAAA;
       --border-color: #3A3A50;
       --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.25);
     }
 
-    /* Base Styles */
     body {
       font-family: 'Cairo', sans-serif;
       background: var(--background-color);
       color: var(--text-color);
-      padding: 25px; /* Increased padding */
+      padding: 25px;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -53,39 +49,28 @@
       min-height: 100vh;
       box-sizing: border-box;
       transition: background-color var(--transition-speed), color var(--transition-speed);
-      overflow-x: hidden; /* Prevent horizontal scroll */
+      overflow-x: hidden;
     }
 
     h1 {
       color: var(--primary-color);
-      margin-bottom: 30px; /* Increased margin */
-      font-size: 2.2em; /* Larger heading */
-      font-weight: 800; /* Extra bold */
-      text-align: center;
-      letter-spacing: 0.5px;
-    }
-
-    h2, h3 {
-      color: var(--text-color);
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-weight: 700;
+      font-size: 2.2em;
+      font-weight: 800;
+      margin-bottom: 30px;
       text-align: center;
     }
 
-    /* Card Component */
     .card {
       background: var(--card-background);
-      padding: 25px; /* Increased padding */
+      padding: 25px;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-light);
-      max-width: 550px; /* Slightly wider */
+      max-width: 550px;
       width: 100%;
-      margin-bottom: 25px; /* Increased margin */
+      margin-bottom: 25px;
       transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
     }
 
-    /* Form Elements */
     label {
       display: block;
       margin-bottom: 8px;
@@ -96,15 +81,14 @@
     input[type="number"],
     input[type="text"],
     select {
-      width: calc(100% - 24px); /* Account for padding */
+      width: calc(100% - 24px);
       padding: 12px;
       margin-bottom: 15px;
       border: 1px solid var(--border-color);
       border-radius: var(--input-border-radius);
-      font-family: 'Cairo', sans-serif;
       font-size: 1.05em;
       color: var(--text-color);
-      background-color: var(--background-color); /* Match body background for a cleaner look */
+      background-color: var(--background-color);
       transition: border-color var(--transition-speed), background-color var(--transition-speed);
     }
 
@@ -114,162 +98,112 @@
       box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.2);
     }
 
-    /* Buttons */
     button {
       background-color: var(--primary-color);
       color: white;
       padding: var(--button-padding);
       border: none;
-      border-radius: var(--input-border-radius); /* Match input border radius */
+      border-radius: var(--input-border-radius);
       cursor: pointer;
       font-size: 1.1em;
       font-weight: 600;
-      display: flex; /* For icon alignment */
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px; /* Space between text and icon */
+      gap: 8px;
       width: 100%;
       transition: background-color var(--transition-speed), transform 0.2s ease;
     }
 
     button:hover {
       background-color: var(--primary-dark);
-      transform: translateY(-2px); /* Slight lift effect */
+      transform: translateY(-2px);
     }
 
-    button:active {
-      transform: translateY(0);
-    }
-
-    /* Balance Grid */
     .balance-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid */
-      gap: 15px; /* Increased gap */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
       margin-top: 10px;
     }
 
     .balance-item {
-      background: linear-gradient(135deg, #E8F5E9, #D4EDDA); /* Subtle gradient */
-      border-radius: 12px; /* Softer corners */
-      padding: 15px; /* More padding */
+      background: linear-gradient(135deg, #E8F5E9, #D4EDDA);
+      border-radius: 12px;
+      padding: 15px;
       text-align: center;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); /* Inner shadow */
       color: var(--text-color);
       font-weight: 600;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: background var(--transition-speed);
     }
 
-    body.dark-mode .balance-item {
-        background: linear-gradient(135deg, #3A3A50, #4A4A60);
-        color: var(--text-color);
+    :root.dark-mode .balance-item {
+      background: linear-gradient(135deg, #3A3A50, #4A4A60);
+      color: var(--text-color);
     }
 
     .balance-item span {
       display: block;
       margin-top: 5px;
-      font-size: 1.4em; /* Larger balance numbers */
+      font-size: 1.4em;
       font-weight: 700;
-      color: var(--primary-color); /* Highlight balance values */
+      color: var(--primary-color);
     }
 
-    body.dark-mode .balance-item span {
-        color: #90EE90; /* Lighter green for dark mode balances */
+    :root.dark-mode .balance-item span {
+      color: #90EE90;
     }
 
-    /* Log List */
     #logList {
-      max-height: 250px; /* Taller scroll area */
+      max-height: 250px;
       overflow-y: auto;
-      border: 1px solid var(--border-color); /* Subtle border */
+      border: 1px solid var(--border-color);
       border-radius: var(--input-border-radius);
       padding: 10px;
-      background-color: var(--background-color); /* Match input background */
-      transition: background-color var(--transition-speed), border-color var(--transition-speed);
+      background-color: var(--background-color);
     }
 
     .log-entry {
       background: var(--card-background);
-      padding: 15px; /* More padding */
+      padding: 15px;
       margin-bottom: 10px;
-      border-radius: 10px; /* Softer corners */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Softer individual entry shadow */
+      border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 8px; /* Space between elements */
-      border-right: 5px solid var(--accent-color); /* Highlight left border */
-      transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+      gap: 8px;
+      border-right: 5px solid var(--accent-color);
     }
 
-    .log-entry:last-child {
-      margin-bottom: 0;
-    }
-
-    .log-entry strong {
-      font-size: 1.1em;
-      color: var(--primary-color);
-    }
-
-    .log-entry small {
-      font-size: 0.85em;
-      color: var(--light-text-color);
-    }
-
-    /* Chart */
     #expenseChart {
-      max-width: 350px; /* Slightly smaller chart */
+      max-width: 350px;
       margin: auto;
     }
 
-    /* Utility Classes */
     .filters, .dark-toggle, .export-button {
-      margin-top: 15px; /* More spacing */
-      margin-bottom: 25px; /* Consistent spacing */
+      margin-top: 15px;
+      margin-bottom: 25px;
       width: 100%;
       max-width: 550px;
       text-align: center;
     }
 
-    .calendar-placeholder {
-      background: #FFF3E0;
-      padding: 20px; /* More padding */
-      border-radius: var(--border-radius);
-      text-align: center;
-      color: #BF360C;
-      font-weight: 700;
-      border: 2px dashed #FFC107; /* Dashed border for attention */
-      font-size: 1.1em;
-      line-height: 1.5;
-      transition: background-color var(--transition-speed), color var(--transition-speed);
-    }
-
-    body.dark-mode .calendar-placeholder {
-        background: #3A2B00;
-        color: #FFD700;
-        border-color: #FFA500;
-    }
-
-    /* Responsive Adjustments */
     @media (max-width: 600px) {
       body {
         padding: 15px;
       }
+
       .card {
         padding: 20px;
       }
+
       h1 {
         font-size: 1.8em;
-        margin-bottom: 20px;
       }
+
       .balance-grid {
-        grid-template-columns: 1fr; /* Stack items on small screens */
+        grid-template-columns: 1fr;
       }
+
       .log-entry {
         flex-direction: column;
         align-items: flex-start;
@@ -280,365 +214,46 @@
 <body>
   <h1><i class="fas fa-sack-dollar"></i> إدارة راتبي الذكية <i class="fas fa-chart-pie"></i></h1>
 
-  <div class="filters card">
-    <label for="filterCategory"><i class="fas fa-filter"></i> فلترة حسب الفئة:</label>
-    <select id="filterCategory" onchange="updateUI()">
-      <option value="all">الكل</option>
-      <option value="essentials">ضروري</option>
-      <option value="secondary">ثانوي</option>
-      <option value="improvements">تحسيني</option>
-    </select>
-  </div>
-
   <div class="dark-toggle card">
     <button onclick="toggleDarkMode()"><i class="fas fa-moon"></i> تبديل الوضع الليلي</button>
   </div>
 
+  <!-- مثال مبسط لبقية الأقسام -->
   <div class="card">
-    <h2><i class="fas fa-coins"></i> تحديد الميزانية</h2>
-    <input type="number" id="salaryInput" placeholder="📥 أدخل راتبك الشهري" min="0">
-    <input type="number" id="essentialsPercent" value="50" placeholder="الضروريات %" min="0" max="100">
-    <input type="number" id="secondaryPercent" value="30" placeholder="الثانويات %" min="0" max="100">
-    <input type="number" id="improvementsPercent" value="20" placeholder="التحسينيات %" min="0" max="100">
-    <button onclick="setBudget()"><i class="fas fa-dollar-sign"></i> توزيع الراتب</button>
+    <h2>مثال على المحتوى</h2>
+    <p>هنا يمكنك إضافة مدخلاتك وبياناتك الخاصة بالتطبيق.</p>
   </div>
 
-  <div class="card" id="balances" style="display:none;">
-    <h2><i class="fas fa-wallet"></i> أرصدة الفئات</h2>
-    <div class="balance-grid">
-      <div class="balance-item">
-        💼 الضروريات: <span id="balanceEssentials">0</span> دج
-      </div>
-      <div class="balance-item">
-        🧥 الثانويات: <span id="balanceSecondary">0</span> دج
-      </div>
-      <div class="balance-item">
-        🎁 التحسينيات: <span id="balanceImprovements">0</span> دج
-      </div>
-    </div>
-  </div>
-
-  <div class="card" id="expenseForm" style="display:none;">
-    <h2><i class="fas fa-plus-circle"></i> إضافة مصروف جديد</h2>
-    <input type="text" id="expenseName" placeholder="✏️ اسم المصروف" required>
-    <input type="number" id="expenseAmount" placeholder="💵 المبلغ" min="0" required>
-    <select id="expenseCategory">
-      <option value="essentials">ضروري</option>
-      <option value="secondary">ثانوي</option>
-      <option value="improvements">تحسيني</option>
-    </select>
-    <button onclick="addExpense()"><i class="fas fa-plus"></i> إضافة</button>
-  </div>
-
-  <div class="card" id="logSection" style="display:none;">
-    <h2><i class="fas fa-receipt"></i> سجل المصروفات</h2>
-    <div id="logList"></div>
-    <div class="export-button">
-      <button onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> تصدير إلى PDF</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2><i class="fas fa-calendar-alt"></i> تقويم مالي شهري (تجريبي)</h2>
-    <div class="calendar-placeholder">
-      <i class="fas fa-hourglass-half"></i> <br>
-      هذه الميزة قيد التطوير وستتوفر قريبًا. ترقبوا التحديثات!
-    </div>
-  </div>
-
-  <div class="card">
-    <h2><i class="fas fa-chart-pie"></i> توزيع المصروفات</h2>
-    <canvas id="expenseChart"></canvas>
-  </div>
+  <canvas id="expenseChart"></canvas>
 
   <script>
-    // Register Service Worker for PWA capabilities
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js') // تأكد من وجود ملف service-worker.js
-          .then(registration => {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          })
-          .catch(err => {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-      });
-    }
-
-    let budget = JSON.parse(localStorage.getItem("budget") || "null");
-    let balances = JSON.parse(localStorage.getItem("balances") || "null");
-    let log = JSON.parse(localStorage.getItem("log") || "[]");
-
-    const tips = [
-      "💡 حاول توفير 10% من راتبك للطوارئ. المدخرات هي مفتاح الاستقرار المالي!",
-      "📌 راجع مصاريفك الأسبوعية لتبقى على اطلاع بإنفاقك وتجنب المفاجآت.",
-      "🪙 احذف الاشتراكات غير الضرورية. كل دينار توفره يضاف إلى رصيدك!",
-      "💰 استخدم قاعدة 50/30/20: 50% للضروريات، 30% للثانويات، 20% للمدخرات والديون.",
-      "💸 ضع لنفسك أهدافاً مالية واضحة، سواء كانت صغيرة أو كبيرة، لتحفيزك على الادخار."
-    ];
-
-    function showRandomTip() {
-      const tip = tips[Math.floor(Math.random() * tips.length)];
-      alert(tip);
-    }
-
-    function setBudget() {
-      const salaryInput = document.getElementById("salaryInput");
-      const p1Input = document.getElementById("essentialsPercent");
-      const p2Input = document.getElementById("secondaryPercent");
-      const p3Input = document.getElementById("improvementsPercent");
-
-      const salary = parseFloat(salaryInput.value);
-      const p1 = parseFloat(p1Input.value);
-      const p2 = parseFloat(p2Input.value);
-      const p3 = parseFloat(p3Input.value);
-
-      if (isNaN(salary) || salary <= 0 || isNaN(p1) || isNaN(p2) || isNaN(p3) || (p1 + p2 + p3 !== 100)) {
-        alert("⚠️ يرجى التحقق من صحة المدخلات. يجب أن يكون الراتب رقماً موجباً وأن يكون مجموع النسب 100%.");
-        return;
-      }
-
-      budget = { salary, p1, p2, p3 };
-      balances = {
-        essentials: salary * p1 / 100,
-        secondary: salary * p2 / 100,
-        improvements: salary * p3 / 100
-      };
-      log = []; // Reset log on new budget
-      localStorage.setItem("budget", JSON.stringify(budget));
-      localStorage.setItem("balances", JSON.stringify(balances));
-      localStorage.setItem("log", JSON.stringify(log));
-      updateUI();
-      showRandomTip();
-
-      // Clear input fields after successful budget setting
-      salaryInput.value = '';
-      p1Input.value = '50';
-      p2Input.value = '30';
-      p3Input.value = '20';
-    }
-
-    function addExpense() {
-      const nameInput = document.getElementById("expenseName");
-      const amountInput = document.getElementById("expenseAmount");
-      const categorySelect = document.getElementById("expenseCategory");
-
-      const name = nameInput.value.trim(); // Trim whitespace
-      const amount = parseFloat(amountInput.value);
-      const category = categorySelect.value;
-
-      if (!name || isNaN(amount) || amount <= 0 || !balances[category] || balances[category] < amount) {
-        alert("🚫 يرجى التحقق من البيانات: تأكد من إدخال اسم ومبلغ صحيحين، وأن المبلغ لا يتجاوز الرصيد المتاح في الفئة.");
-        return;
-      }
-
-      balances[category] -= amount;
-      const entry = { name, amount, category, date: new Date().toLocaleDateString("ar-DZ") };
-      log.push(entry);
-      localStorage.setItem("balances", JSON.stringify(balances));
-      localStorage.setItem("log", JSON.stringify(log));
-      updateUI();
-      showRandomTip();
-
-      // Clear input fields after adding expense
-      nameInput.value = '';
-      amountInput.value = '';
-      categorySelect.value = 'essentials'; // Reset to default
-    }
-
-    let expenseChartInstance = null; // To store chart instance
-
-    function updateUI() {
-      if (!budget || !balances) {
-        // Hide relevant sections if budget not set
-        document.getElementById("balances").style.display = "none";
-        document.getElementById("expenseForm").style.display = "none";
-        document.getElementById("logSection").style.display = "none";
-        return;
-      }
-      document.getElementById("balances").style.display = "block";
-      document.getElementById("expenseForm").style.display = "block";
-      document.getElementById("logSection").style.display = "block";
-
-      document.getElementById("balanceEssentials").textContent = balances.essentials.toFixed(2);
-      document.getElementById("balanceSecondary").textContent = balances.secondary.toFixed(2);
-      document.getElementById("balanceImprovements").textContent = balances.improvements.toFixed(2);
-
-      const filter = document.getElementById("filterCategory").value;
-      const list = document.getElementById("logList");
-      list.innerHTML = ""; // Clear existing entries
-
-      const filteredLog = log.filter(e => filter === "all" || e.category === filter);
-
-      if (filteredLog.length === 0) {
-        list.innerHTML = '<div style="text-align: center; color: var(--light-text-color); padding: 20px;">لا توجد مصروفات لعرضها في هذه الفئة.</div>';
-      } else {
-        filteredLog.slice().reverse().forEach(e => {
-          const div = document.createElement("div");
-          div.className = "log-entry";
-          div.innerHTML = `
-            <div><strong>${e.name}</strong> - <span style="color: ${e.category === 'essentials' ? '#4CAF50' : e.category === 'secondary' ? '#FFC107' : '#2196F3'};">${e.amount.toFixed(2)} دج</span></div>
-            <small>${e.date} | الفئة: ${e.category === 'essentials' ? 'ضروري' : e.category === 'secondary' ? 'ثانوي' : 'تحسيني'}</small>
-          `;
-          list.appendChild(div);
-        });
-      }
-
-      updateChart();
-    }
-
-    function updateChart() {
-      // Destroy old chart instance if it exists
-      if (expenseChartInstance) {
-        expenseChartInstance.destroy();
-      }
-
-      const totalSpentEssentials = log.filter(e => e.category === 'essentials').reduce((sum, entry) => sum + entry.amount, 0);
-      const totalSpentSecondary = log.filter(e => e.category === 'secondary').reduce((sum, entry) => sum + entry.amount, 0);
-      const totalSpentImprovements = log.filter(e => e.category === 'improvements').reduce((sum, entry) => sum + entry.amount, 0);
-
-      const chartData = [
-        budget.salary * budget.p1 / 100 - totalSpentEssentials,
-        budget.salary * budget.p2 / 100 - totalSpentSecondary,
-        budget.salary * budget.p3 / 100 - totalSpentImprovements
-      ];
-
-      expenseChartInstance = new Chart(document.getElementById("expenseChart"), {
-        type: 'doughnut',
-        data: {
-          labels: ["المتبقي في الضروريات", "المتبقي في الثانويات", "المتبقي في التحسينيات"],
-          datasets: [{
-            data: chartData,
-            backgroundColor: ["#4CAF50", "#FFC107", "#2196F3"],
-            hoverOffset: 8,
-            borderColor: var(--card-background), /* Match card background for better blending */
-            borderWidth: 2
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: getComputedStyle(document.body).getPropertyValue('--text-color'),
-                font: {
-                  family: 'Cairo, sans-serif',
-                  size: 14
-                }
-              }
-            },
-            tooltip: {
-              callbacks: {
-                label: function(context) {
-                  let label = context.label || '';
-                  if (label) {
-                    label += ': ';
-                  }
-                  if (context.parsed !== null) {
-                    label += context.parsed.toFixed(2) + ' دج';
-                  }
-                  return label;
-                }
-              },
-              bodyFont: {
-                family: 'Cairo, sans-serif'
-              },
-              titleFont: {
-                family: 'Cairo, sans-serif'
-              }
-            }
-          }
-        }
-      });
-    }
-
-
-    function exportToPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF({
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait"
-      });
-
-      // Add Arabic font support (requires a font file to be loaded or embedded)
-      // For simplicity, we'll use a basic approach here. For full Arabic support,
-      // you might need to embed a font like 'Amiri' or 'Scheherazade' and use jspdf-arabic
-      // You can find more details on jspdf-arabic: https://github.com/MrMYousuf/jspdf-arabic
-
-      const tableColumn = ["الفئة", "المبلغ (دج)", "اسم المصروف", "التاريخ"];
-      const tableRows = [];
-
-      log.forEach(e => {
-        tableRows.push([
-          e.category === 'essentials' ? 'ضروري' : e.category === 'secondary' ? 'ثانوي' : 'تحسيني',
-          e.amount.toFixed(2),
-          e.name,
-          e.date
-        ]);
-      });
-
-      doc.setFont("helvetica", "bold");
-      doc.text("سجل المصروفات", doc.internal.pageSize.width / 2, 20, { align: "center" });
-
-      doc.autoTable({
-        startY: 30,
-        head: [tableColumn],
-        body: tableRows,
-        styles: {
-          font: "helvetica",
-          fontSize: 10,
-          halign: 'right' // Align text to right for Arabic
-        },
-        headStyles: {
-          fillColor: [52, 168, 83], // Primary color for table header
-          textColor: 255,
-          halign: 'right'
-        },
-        columnStyles: {
-          0: { halign: 'right' }, // Category
-          1: { halign: 'right' }, // Amount
-          2: { halign: 'right' }, // Name
-          3: { halign: 'right' }  // Date
-        },
-        margin: { top: 25 }
-      });
-
-      doc.save("سجل-المصروفات.pdf");
-    }
+    let expenseChartInstance = null;
 
     function toggleDarkMode() {
-      document.body.classList.toggle("dark-mode");
-      // Update chart colors if in dark mode
+      document.documentElement.classList.toggle("dark-mode");
       if (expenseChartInstance) {
-          const textColor = getComputedStyle(document.body).getPropertyValue('--text-color');
-          const cardBackground = getComputedStyle(document.body).getPropertyValue('--card-background');
-          expenseChartInstance.options.plugins.legend.labels.color = textColor;
-          expenseChartInstance.data.datasets[0].borderColor = cardBackground;
-          expenseChartInstance.update();
+        const textColor = getComputedStyle(document.body).getPropertyValue('--text-color');
+        const cardBackground = getComputedStyle(document.body).getPropertyValue('--card-background');
+        expenseChartInstance.options.plugins.legend.labels.color = textColor;
+        expenseChartInstance.data.datasets[0].borderColor = cardBackground;
+        expenseChartInstance.update();
       }
     }
 
-    // Initial load and UI update
     document.addEventListener('DOMContentLoaded', () => {
-      updateUI();
-      // Apply dark mode preference on load if exists
       if (localStorage.getItem('darkMode') === 'enabled') {
-          document.body.classList.add('dark-mode');
+        document.documentElement.classList.add('dark-mode');
       }
     });
 
-    // Save dark mode preference
-    document.body.addEventListener('transitionend', (e) => {
-        if (e.propertyName === 'background-color' && e.target === document.body) {
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                localStorage.removeItem('darkMode');
-            }
+    document.documentElement.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'background-color') {
+        if (document.documentElement.classList.contains('dark-mode')) {
+          localStorage.setItem('darkMode', 'enabled');
+        } else {
+          localStorage.removeItem('darkMode');
         }
+      }
     });
   </script>
 </body>
