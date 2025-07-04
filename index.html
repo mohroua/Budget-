@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192x192.png">
-  <meta name="theme-color" content="#34A853"> <title>إدارة راتبي - تطبيقك المالي الذكي</title>
+  <link rel="icon" href="icons/icon-192x192.png"> <meta name="theme-color" content="#34A853">
+  <title>إدارة راتبي - تطبيقك المالي الذكي</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
 
   <style>
     /* Global Variables and Dark Mode */
@@ -31,7 +32,7 @@
       --transition-speed: 0.3s ease;
     }
 
-    /* Corrected: Apply dark-mode class to :root */
+    /* Dark mode styles applied to :root for proper CSS variable override */
     :root.dark-mode {
       --background-color: #1A1A2E; /* Dark Blue-Purple */
       --card-background: #2D2D44; /* Darker Blue-Purple */
@@ -46,7 +47,7 @@
       font-family: 'Cairo', sans-serif;
       background: var(--background-color);
       color: var(--text-color);
-      padding: 25px; /* Increased padding */
+      padding: 25px;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -54,16 +55,25 @@
       min-height: 100vh;
       box-sizing: border-box;
       transition: background-color var(--transition-speed), color var(--transition-speed);
-      overflow-x: hidden; /* Prevent horizontal scroll */
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased; /* Better font rendering */
+      -moz-osx-font-smoothing: grayscale;
     }
 
     h1 {
       color: var(--primary-color);
-      margin-bottom: 30px; /* Increased margin */
-      font-size: 2.2em; /* Larger heading */
-      font-weight: 800; /* Extra bold */
+      margin-bottom: 30px;
+      font-size: 2.2em;
+      font-weight: 800;
       text-align: center;
       letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h1 .fas {
+        font-size: 0.8em; /* Slightly smaller icons in heading */
     }
 
     h2, h3 {
@@ -72,18 +82,23 @@
       margin-bottom: 20px;
       font-weight: 700;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
     /* Card Component */
     .card {
       background: var(--card-background);
-      padding: 25px; /* Increased padding */
+      padding: 25px;
       border-radius: var(--border-radius);
       box-shadow: var(--shadow-light);
-      max-width: 550px; /* Slightly wider */
+      max-width: 550px;
       width: 100%;
-      margin-bottom: 25px; /* Increased margin */
+      margin-bottom: 25px;
       transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+      position: relative; /* For tooltips or overlays */
     }
 
     /* Form Elements */
@@ -92,12 +107,15 @@
       margin-bottom: 8px;
       font-weight: 600;
       color: var(--light-text-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     input[type="number"],
     input[type="text"],
     select {
-      width: calc(100% - 24px); /* Account for padding */
+      width: calc(100% - 24px);
       padding: 12px;
       margin-bottom: 15px;
       border: 1px solid var(--border-color);
@@ -105,7 +123,7 @@
       font-family: 'Cairo', sans-serif;
       font-size: 1.05em;
       color: var(--text-color);
-      background-color: var(--background-color); /* Match body background for a cleaner look */
+      background-color: var(--background-color);
       transition: border-color var(--transition-speed), background-color var(--transition-speed);
     }
 
@@ -121,41 +139,43 @@
       color: white;
       padding: var(--button-padding);
       border: none;
-      border-radius: var(--input-border-radius); /* Match input border radius */
+      border-radius: var(--input-border-radius);
       cursor: pointer;
       font-size: 1.1em;
       font-weight: 600;
-      display: flex; /* For icon alignment */
+      display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px; /* Space between text and icon */
+      gap: 8px;
       width: 100%;
-      transition: background-color var(--transition-speed), transform 0.2s ease;
+      transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
     }
 
     button:hover {
       background-color: var(--primary-dark);
-      transform: translateY(-2px); /* Slight lift effect */
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     button:active {
       transform: translateY(0);
+      box-shadow: none;
     }
 
     /* Balance Grid */
     .balance-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* Responsive grid */
-      gap: 15px; /* Increased gap */
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
       margin-top: 10px;
     }
 
     .balance-item {
-      background: linear-gradient(135deg, #E8F5E9, #D4EDDA); /* Subtle gradient */
-      border-radius: 12px; /* Softer corners */
-      padding: 15px; /* More padding */
+      background: linear-gradient(135deg, #E8F5E9, #D4EDDA);
+      border-radius: 12px;
+      padding: 15px;
       text-align: center;
-      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05); /* Inner shadow */
+      box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
       color: var(--text-color);
       font-weight: 600;
       display: flex;
@@ -165,7 +185,6 @@
       transition: background var(--transition-speed);
     }
 
-    /* Corrected: Apply dark-mode class to :root */
     :root.dark-mode .balance-item {
         background: linear-gradient(135deg, #3A3A50, #4A4A60);
         color: var(--text-color);
@@ -174,39 +193,38 @@
     .balance-item span {
       display: block;
       margin-top: 5px;
-      font-size: 1.4em; /* Larger balance numbers */
+      font-size: 1.4em;
       font-weight: 700;
-      color: var(--primary-color); /* Highlight balance values */
+      color: var(--primary-color);
     }
 
-    /* Corrected: Apply dark-mode class to :root */
     :root.dark-mode .balance-item span {
-        color: #90EE90; /* Lighter green for dark mode balances */
+        color: #90EE90;
     }
 
     /* Log List */
     #logList {
-      max-height: 250px; /* Taller scroll area */
+      max-height: 280px; /* Slightly taller scroll area */
       overflow-y: auto;
-      border: 1px solid var(--border-color); /* Subtle border */
+      border: 1px solid var(--border-color);
       border-radius: var(--input-border-radius);
       padding: 10px;
-      background-color: var(--background-color); /* Match input background */
+      background-color: var(--background-color);
       transition: background-color var(--transition-speed), border-color var(--transition-speed);
     }
 
     .log-entry {
       background: var(--card-background);
-      padding: 15px; /* More padding */
+      padding: 15px;
       margin-bottom: 10px;
-      border-radius: 10px; /* Softer corners */
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Softer individual entry shadow */
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap; /* Allow wrapping on small screens */
-      gap: 8px; /* Space between elements */
-      border-right: 5px solid var(--accent-color); /* Highlight left border */
+      flex-wrap: wrap;
+      gap: 8px;
+      border-right: 5px solid var(--accent-color);
       transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
     }
 
@@ -226,14 +244,14 @@
 
     /* Chart */
     #expenseChart {
-      max-width: 350px; /* Slightly smaller chart */
+      max-width: 350px;
       margin: auto;
     }
 
-    /* Utility Classes */
+    /* Utility Classes & General Layout */
     .filters, .dark-toggle, .export-button {
-      margin-top: 15px; /* More spacing */
-      margin-bottom: 25px; /* Consistent spacing */
+      margin-top: 15px;
+      margin-bottom: 25px;
       width: 100%;
       max-width: 550px;
       text-align: center;
@@ -241,18 +259,17 @@
 
     .calendar-placeholder {
       background: #FFF3E0;
-      padding: 20px; /* More padding */
+      padding: 20px;
       border-radius: var(--border-radius);
       text-align: center;
       color: #BF360C;
       font-weight: 700;
-      border: 2px dashed #FFC107; /* Dashed border for attention */
+      border: 2px dashed #FFC107;
       font-size: 1.1em;
       line-height: 1.5;
       transition: background-color var(--transition-speed), color var(--transition-speed);
     }
 
-    /* Corrected: Apply dark-mode class to :root */
     :root.dark-mode .calendar-placeholder {
         background: #3A2B00;
         color: #FFD700;
@@ -272,7 +289,7 @@
         margin-bottom: 20px;
       }
       .balance-grid {
-        grid-template-columns: 1fr; /* Stack items on small screens */
+        grid-template-columns: 1fr;
       }
       .log-entry {
         flex-direction: column;
@@ -355,12 +372,11 @@
     <canvas id="expenseChart"></canvas>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     // Register Service Worker for PWA capabilities
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js') // تأكد من وجود ملف service-worker.js
+        navigator.serviceWorker.register('/service-worker.js')
           .then(registration => {
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
           })
@@ -428,7 +444,7 @@
       const amountInput = document.getElementById("expenseAmount");
       const categorySelect = document.getElementById("expenseCategory");
 
-      const name = nameInput.value.trim(); // Trim whitespace
+      const name = nameInput.value.trim();
       const amount = parseFloat(amountInput.value);
       const category = categorySelect.value;
 
@@ -448,7 +464,7 @@
       // Clear input fields after adding expense
       nameInput.value = '';
       amountInput.value = '';
-      categorySelect.value = 'essentials'; // Reset to default
+      categorySelect.value = 'essentials';
     }
 
     let expenseChartInstance = null; // To store chart instance
@@ -471,7 +487,7 @@
 
       const filter = document.getElementById("filterCategory").value;
       const list = document.getElementById("logList");
-      list.innerHTML = ""; // Clear existing entries
+      list.innerHTML = "";
 
       const filteredLog = log.filter(e => filter === "all" || e.category === filter);
 
@@ -516,7 +532,6 @@
             data: chartData,
             backgroundColor: ["#4CAF50", "#FFC107", "#2196F3"],
             hoverOffset: 8,
-            // Access CSS variables from the root element for dynamic color updates
             borderColor: getComputedStyle(document.documentElement).getPropertyValue('--card-background'),
             borderWidth: 2
           }]
@@ -528,7 +543,6 @@
             legend: {
               position: 'bottom',
               labels: {
-                // Access CSS variables from the root element for dynamic color updates
                 color: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
                 font: {
                   family: 'Cairo, sans-serif',
@@ -614,7 +628,6 @@
       document.documentElement.classList.toggle("dark-mode");
       // Update chart colors if in dark mode
       if (expenseChartInstance) {
-          // Use document.documentElement to get computed styles for CSS variables
           const textColor = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
           const cardBackground = getComputedStyle(document.documentElement).getPropertyValue('--card-background');
           expenseChartInstance.options.plugins.legend.labels.color = textColor;
@@ -633,7 +646,6 @@
     });
 
     // Save dark mode preference
-    // Listen for changes on document.documentElement not body
     document.documentElement.addEventListener('transitionend', (e) => {
         if (e.propertyName === 'background-color' && e.target === document.documentElement) {
             if (document.documentElement.classList.contains('dark-mode')) {
