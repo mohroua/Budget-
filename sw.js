@@ -1,10 +1,9 @@
 const CACHE_NAME = 'budget-manager-cache-v1';
 const urlsToCache = [
   'index.html',
-  'style.css',
-  'app.js',
+  'sw.js',
   'manifest.json',
-  'icons/icon-192.png'
+  'icons/401751295234.png'
 ];
 
 self.addEventListener('install', function(event) {
