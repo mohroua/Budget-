@@ -1,28 +1,91 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>إدارة راتبي</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="fontawesome/css/all.min.css">
-  <link rel="preload" href="fonts/Cairo.woff2" as="font" type="font/woff2" crossorigin>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192x192.png"> <meta name="theme-color" content="#34A853">
+  <title>إدارة راتبي - تطبيقك المالي الذكي</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css"> <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-  <h1>مرحبًا بك في تطبيق إدارة راتبي</h1>
+  <h1><i class="fas fa-sack-dollar"></i> إدارة راتبي الذكية <i class="fas fa-chart-pie"></i></h1>
 
-  <!-- رسومات بيانية -->
-  <canvas id="expensesChart" width="400" height="200"></canvas>
+  <div class="filters card">
+    <label for="filterCategory"><i class="fas fa-filter"></i> فلترة حسب الفئة:</label>
+    <select id="filterCategory" onchange="updateUI()">
+      <option value="all">الكل</option>
+      <option value="essentials">ضروري</option>
+      <option value="secondary">ثانوي</option>
+      <option value="improvements">تحسيني</option>
+    </select>
+  </div>
 
-  <!-- سكريبتات -->
-  <script src="libs/chart.min.js"></script>
-  <script src="libs/jspdf.umd.min.js"></script>
-  <script src="app.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("sw.js");
-    }
-  </script>
-</body>
+  <div class="dark-toggle card">
+    <button onclick="toggleDarkMode()"><i class="fas fa-moon"></i> تبديل الوضع الليلي</button>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-coins"></i> تحديد الميزانية</h2>
+    <input type="number" id="salaryInput" placeholder="📥 أدخل راتبك الشهري" min="0">
+    <input type="number" id="essentialsPercent" value="50" placeholder="الضروريات %" min="0" max="100">
+    <input type="number" id="secondaryPercent" value="30" placeholder="الثانويات %" min="0" max="100">
+    <input type="number" id="improvementsPercent" value="20" placeholder="التحسينيات %" min="0" max="100">
+    <button onclick="setBudget()"><i class="fas fa-dollar-sign"></i> توزيع الراتب</button>
+  </div>
+
+  <div class="card" id="balances" style="display:none;">
+    <h2><i class="fas fa-wallet"></i> أرصدة الفئات</h2>
+    <div class="balance-grid">
+      <div class="balance-item">
+        💼 الضروريات: <span id="balanceEssentials">0</span> دج
+      </div>
+      <div class="balance-item">
+        🧥 الثانويات: <span id="balanceSecondary">0</span> دج
+      </div>
+      <div class="balance-item">
+        🎁 التحسينيات: <span id="balanceImprovements">0</span> دج
+      </div>
+    </div>
+  </div>
+
+  <div class="card" id="expenseForm" style="display:none;">
+    <h2><i class="fas fa-plus-circle"></i> إضافة مصروف جديد</h2>
+    <input type="text" id="expenseName" placeholder="✏️ اسم المصروف" required>
+    <input type="number" id="expenseAmount" placeholder="💵 المبلغ" min="0" required>
+    <select id="expenseCategory">
+      <option value="essentials">ضروري</option>
+      <option value="secondary">ثانوي</option>
+      <option value="improvements">تحسيني</option>
+    </select>
+    <button onclick="addExpense()"><i class="fas fa-plus"></i> إضافة</button>
+  </div>
+
+  <div class="card" id="logSection" style="display:none;">
+    <h2><i class="fas fa-receipt"></i> سجل المصروفات</h2>
+    <div id="logList"></div>
+    <div class="export-button">
+      <button onclick="exportToPDF()"><i class="fas fa-file-pdf"></i> تصدير إلى PDF</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-calendar-alt"></i> تقويم مالي شهري (تجريبي)</h2>
+    <div class="calendar-placeholder">
+      <i class="fas fa-hourglass-half"></i> <br>
+      هذه الميزة قيد التطوير وستتوفر قريبًا. ترقبوا التحديثات!
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><i class="fas fa-chart-pie"></i> توزيع المصروفات</h2>
+    <canvas id="expenseChart"></canvas>
+  </div>
+
+  <script src="app.js"></script> </body>
 </html>
