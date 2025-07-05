@@ -3,32 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1A1A1A">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-
   <link rel="icon" href="icons/icon-192x192.png">
+  <meta name="theme-color" content="#1A1A1A"> <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
 
   <title>إدارة راتبي - تطبيقك المالي الذكي</title>
 
-  <link rel="stylesheet" href="fonts/cairo-local.css">
-
-  <link href="fonts/material-symbols/material-symbols-outlined.css" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
 
-  <script src="js/chart.min.js"></script>
-
-  <script src="js/jspdf.umd.min.js"></script>
-  <script src="js/jspdf.plugin.autotable.min.js"></script>
-</head>
+  </head>
 <body>
-  <h1><span class="material-symbols-outlined">account_balance_wallet</span> إدارة راتبي الذكية <span class="material-symbols-outlined">pie_chart</span></h1>
+  <h1>💰 إدارة راتبي الذكية 📊</h1>
 
   <div class="filters card">
-    <label for="filterCategory"><span class="material-symbols-outlined">filter_alt</span> فلترة حسب الفئة:</label>
+    <label for="filterCategory">🔍 فلترة حسب الفئة:</label>
     <select id="filterCategory" onchange="updateUI()">
       <option value="all">الكل</option>
       <option value="essentials">ضروري</option>
@@ -38,20 +27,20 @@
   </div>
 
   <div class="dark-toggle card">
-    <button onclick="toggleDarkMode()"><span class="material-symbols-outlined">dark_mode</span> تبديل الوضع الليلي</button>
+    <button onclick="toggleDarkMode()">🌙 تبديل الوضع الليلي</button>
   </div>
 
   <div class="card">
-    <h2><span class="material-symbols-outlined">savings</span> تحديد الميزانية</h2>
+    <h2>🪙 تحديد الميزانية</h2>
     <input type="number" id="salaryInput" placeholder="📥 أدخل راتبك الشهري" min="0">
     <input type="number" id="essentialsPercent" value="50" placeholder="الضروريات %" min="0" max="100">
     <input type="number" id="secondaryPercent" value="30" placeholder="الثانويات %" min="0" max="100">
     <input type="number" id="improvementsPercent" value="20" placeholder="التحسينيات %" min="0" max="100">
-    <button onclick="setBudget()"><span class="material-symbols-outlined">attach_money</span> توزيع الراتب</button>
+    <button onclick="setBudget()">💲 توزيع الراتب</button>
   </div>
 
   <div class="card" id="balances" style="display:none;">
-    <h2><span class="material-symbols-outlined">account_balance_wallet</span> أرصدة الفئات</h2>
+    <h2>💳 أرصدة الفئات</h2>
     <div class="balance-grid">
       <div class="balance-item">
         💼 الضروريات: <span id="balanceEssentials">0</span> دج
@@ -66,7 +55,7 @@
   </div>
 
   <div class="card" id="expenseForm" style="display:none;">
-    <h2><span class="material-symbols-outlined">add_circle</span> إضافة مصروف جديد</h2>
+    <h2>➕ إضافة مصروف جديد</h2>
     <input type="text" id="expenseName" placeholder="✏️ اسم المصروف" required>
     <input type="number" id="expenseAmount" placeholder="💵 المبلغ" min="0" required>
     <select id="expenseCategory">
@@ -74,27 +63,27 @@
       <option value="secondary">ثانوي</option>
       <option value="improvements">تحسيني</option>
     </select>
-    <button onclick="addExpense()"><span class="material-symbols-outlined">add</span> إضافة</button>
+    <button onclick="addExpense()">✅ إضافة</button>
   </div>
 
   <div class="card" id="logSection" style="display:none;">
-    <h2><span class="material-symbols-outlined">receipt_long</span> سجل المصروفات</h2>
+    <h2>🧾 سجل المصروفات</h2>
     <div id="logList"></div>
     <div class="export-button">
-      <button onclick="exportToPDF()"><span class="material-symbols-outlined">picture_as_pdf</span> تصدير إلى PDF</button>
+      <button onclick="exportToPDF()">📄 تصدير إلى PDF</button>
     </div>
   </div>
 
   <div class="card">
-    <h2><span class="material-symbols-outlined">calendar_month</span> تقويم مالي شهري (تجريبي)</h2>
+    <h2>🗓️ تقويم مالي شهري (تجريبي)</h2>
     <div class="calendar-placeholder">
-      <span class="material-symbols-outlined">hourglass_empty</span> <br>
+      ⏳ <br>
       هذه الميزة قيد التطوير وستتوفر قريبًا. ترقبوا التحديثات!
     </div>
   </div>
 
   <div class="card">
-    <h2><span class="material-symbols-outlined">pie_chart</span> توزيع المصروفات</h2>
+    <h2>📈 توزيع المصروفات</h2>
     <canvas id="expenseChart"></canvas>
   </div>
 
