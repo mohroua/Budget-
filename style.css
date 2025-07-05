@@ -1,0 +1,281 @@
+/* Global Variables and Dark Mode */
+:root {
+  --primary-color: #34A853; /* Vibrant Green */
+  --primary-dark: #2C8C46; /* Darker Green */
+  --accent-color: #4285F4; /* Google Blue */
+  --background-color: #EEF5F9; /* Light Grayish Blue */
+  --card-background: #FFFFFF; /* White */
+  --text-color: #333333; /* Dark Gray */
+  --light-text-color: #666666; /* Medium Gray */
+  --border-color: #E0E0E0; /* Light Gray */
+  --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+  --border-radius: 16px; /* Larger border-radius for softer look */
+  --input-border-radius: 10px;
+  --button-padding: 14px 20px;
+  --transition-speed: 0.3s ease;
+}
+
+/* Dark mode styles applied to :root for proper CSS variable override */
+:root.dark-mode {
+  --background-color: #1A1A2E; /* Dark Blue-Purple */
+  --card-background: #2D2D44; /* Darker Blue-Purple */
+  --text-color: #E0E0E0;
+  --light-text-color: #AAAAAA;
+  --border-color: #3A3A50;
+  --shadow-light: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Base Styles */
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 25px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased; /* Better font rendering */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 .fas {
+    font-size: 0.8em; /* Slightly smaller icons in heading */
+}
+
+h2, h3 {
+  color: var(--text-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Card Component */
+.card {
+  background: var(--card-background);
+  padding: 25px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  max-width: 550px;
+  width: 100%;
+  margin-bottom: 25px;
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+  position: relative; /* For tooltips or overlays */
+}
+
+/* Form Elements */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--light-text-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  width: calc(100% - 24px);
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  font-family: 'Cairo', sans-serif;
+  font-size: 1.05em;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.2);
+}
+
+/* Buttons */
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--button-padding);
+  border: none;
+  border-radius: var(--input-border-radius);
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: background-color var(--transition-speed), transform 0.2s ease, box-shadow var(--transition-speed);
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Balance Grid */
+.balance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.balance-item {
+  background: linear-gradient(135deg, #E8F5E9, #D4EDDA);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
+  color: var(--text-color);
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: background var(--transition-speed);
+}
+
+:root.dark-mode .balance-item {
+    background: linear-gradient(135deg, #3A3A50, #4A4A60);
+    color: var(--text-color);
+}
+
+.balance-item span {
+  display: block;
+  margin-top: 5px;
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+:root.dark-mode .balance-item span {
+    color: #90EE90;
+}
+
+/* Log List */
+#logList {
+  max-height: 280px; /* Slightly taller scroll area */
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  padding: 10px;
+  background-color: var(--background-color);
+  transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+.log-entry {
+  background: var(--card-background);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  border-right: 5px solid var(--accent-color);
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.log-entry:last-child {
+  margin-bottom: 0;
+}
+
+.log-entry strong {
+  font-size: 1.1em;
+  color: var(--primary-color);
+}
+
+.log-entry small {
+  font-size: 0.85em;
+  color: var(--light-text-color);
+}
+
+/* Chart */
+#expenseChart {
+  max-width: 350px;
+  margin: auto;
+}
+
+/* Utility Classes & General Layout */
+.filters, .dark-toggle, .export-button {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+}
+
+.calendar-placeholder {
+  background: #FFF3E0;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: #BF360C;
+  font-weight: 700;
+  border: 2px dashed #FFC107;
+  font-size: 1.1em;
+  line-height: 1.5;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+:root.dark-mode .calendar-placeholder {
+    background: #3A2B00;
+    color: #FFD700;
+    border-color: #FFA500;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+  .card {
+    padding: 20px;
+  }
+  h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  .balance-grid {
+    grid-template-columns: 1fr;
+  }
+  .log-entry {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
