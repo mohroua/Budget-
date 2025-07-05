@@ -1,8 +1,6 @@
 /*
- * Modern & Professional PWA Design for "My Salary Management"
- * Focused on elegance, user experience, and offline-first readiness.
- * Author: Your Name/Organization (Optional)
- * Version: 2.0
+ * تصميم عصري وإبداعي لتطبيق PWA "إدارة راتبي"
+ * بدون مكتبات خارجية، مع التركيز على السرعة والأداء.
  */
 
 /* --- 1. Global Variables (Root) --- */
@@ -62,10 +60,11 @@
 
 /* --- 2. Base Styles --- */
 body {
-  font-family: 'Cairo', 'Arial', sans-serif; /* Fallback fonts */
-  background: var(--background-medium); /* Slightly darker background */
+  /* استخدام خط النظام الافتراضي - عصري وسريع ولا يتطلب تحميل خارجي */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background: var(--background-medium);
   color: var(--text-color-dark);
-  padding: calc(var(--spacing-unit) * 3); /* 24px */
+  padding: calc(var(--spacing-unit) * 3);
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -73,40 +72,40 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   transition: background-color var(--transition-speed-normal), color var(--transition-speed-normal);
-  line-height: 1.6; /* Improved readability */
+  line-height: 1.6;
 }
 
 h1 {
-  font-size: 3em; /* Slightly larger for impact */
-  font-weight: 800; /* Bold, but not too heavy */
+  font-size: 3em;
+  font-weight: 800;
   color: var(--primary-color);
-  margin-bottom: calc(var(--spacing-unit) * 4); /* 32px */
+  margin-bottom: calc(var(--spacing-unit) * 4);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: calc(var(--spacing-unit) * 2); /* 16px */
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.08); /* More subtle shadow */
-  letter-spacing: -0.02em; /* Tighter letter spacing for headings */
+  gap: calc(var(--spacing-unit) * 2);
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.08);
+  letter-spacing: -0.02em;
 }
 
 /* --- 3. Card Component --- */
 .card {
-  background: var(--card-background-transparent); /* Use transparent variant for blur */
-  backdrop-filter: blur(15px) saturate(1.8); /* Stronger, more modern blur */
-  -webkit-backdrop-filter: blur(15px) saturate(1.8); /* For Webkit browsers */
-  padding: calc(var(--spacing-unit) * 4); /* 32px */
+  background: var(--card-background-transparent);
+  backdrop-filter: blur(15px) saturate(1.8);
+  -webkit-backdrop-filter: blur(15px) saturate(1.8);
+  padding: calc(var(--spacing-unit) * 4);
   border-radius: var(--border-radius-large);
   box-shadow: var(--shadow-medium);
   width: 100%;
-  max-width: 620px; /* Slightly wider max-width */
+  max-width: 620px;
   margin-bottom: calc(var(--spacing-unit) * 4);
   transition: background-color var(--transition-speed-normal), box-shadow var(--transition-speed-normal), transform var(--transition-speed-fast);
-  animation: fadeInPop 0.7s ease-out forwards; /* New animation */
-  border: 1px solid var(--border-color-light); /* Subtle border for definition */
+  animation: fadeInPop 0.7s ease-out forwards;
+  border: 1px solid var(--border-color-light);
 }
 
 .card:hover {
-  transform: translateY(-5px); /* Lift on hover */
+  transform: translateY(-5px);
   box-shadow: var(--shadow-hover);
 }
 
@@ -119,22 +118,22 @@ h1 {
 /* --- 4. Form Elements (Input, Select) --- */
 input, select {
   width: 100%;
-  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2); /* 12px 16px */
-  margin-bottom: calc(var(--spacing-unit) * 2.5); /* 20px */
-  font-size: 1.1em; /* Slightly larger font */
+  padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
+  margin-bottom: calc(var(--spacing-unit) * 2.5);
+  font-size: 1.1em;
   color: var(--text-color-dark);
-  background-color: var(--background-light); /* Use a light background variable */
+  background-color: var(--background-light);
   border: 1px solid var(--border-color-medium);
-  border-radius: var(--border-radius-medium); /* Consistent with cards */
+  border-radius: var(--border-radius-medium);
   transition: all var(--transition-speed-fast);
-  appearance: none; /* Reset default select styles */
+  appearance: none;
 }
 
 input:focus, select:focus {
   border-color: var(--primary-color);
   outline: none;
-  box-shadow: 0 0 0 4px rgba(52, 168, 83, 0.25); /* Stronger, more noticeable focus ring */
-  background-color: var(--card-background); /* Highlight background on focus */
+  box-shadow: 0 0 0 4px rgba(52, 168, 83, 0.25);
+  background-color: var(--card-background);
 }
 
 /* --- 5. Button Styles --- */
@@ -151,40 +150,40 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-unit); /* 8px */
+  gap: var(--spacing-unit);
   box-shadow: var(--shadow-subtle);
-  letter-spacing: 0.02em; /* Slightly wider letter spacing for buttons */
+  letter-spacing: 0.02em;
 }
 
 button:hover {
   background-color: var(--primary-dark);
-  transform: translateY(-2px); /* Subtle lift */
+  transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
 }
 
 button:active {
-  transform: scale(0.98) translateY(0); /* Squish and no lift */
-  box-shadow: none; /* No shadow on active */
+  transform: scale(0.98) translateY(0);
+  box-shadow: none;
 }
 
 /* --- 6. Balance Grid --- */
 .balance-grid {
-  display: grid; /* Use Grid for more control */
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsive grid */
-  gap: calc(var(--spacing-unit) * 2.5); /* 20px */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: calc(var(--spacing-unit) * 2.5);
   width: 100%;
 }
 
 .balance-item {
-  background: var(--background-light); /* Use light background variable */
-  padding: calc(var(--spacing-unit) * 3); /* 24px */
+  background: var(--background-light);
+  padding: calc(var(--spacing-unit) * 3);
   border-radius: var(--border-radius-medium);
   text-align: center;
   font-weight: 600;
   color: var(--text-color-dark);
   box-shadow: var(--shadow-subtle);
   transition: all var(--transition-speed-fast);
-  border: 1px solid var(--border-color-light); /* Subtle border */
+  border: 1px solid var(--border-color-light);
 }
 
 .balance-item:hover {
@@ -193,37 +192,37 @@ button:active {
 }
 
 :root.dark-mode .balance-item {
-  background: var(--background-light); /* Dark mode specific background */
+  background: var(--background-light);
   color: var(--text-color-dark);
   border-color: var(--border-color-medium);
 }
 
 .balance-item span {
-  display: block; /* Ensure span takes full width */
-  margin-top: var(--spacing-unit); /* 8px */
-  font-size: 2em; /* Larger, more prominent number */
+  display: block;
+  margin-top: var(--spacing-unit);
+  font-size: 2em;
   font-weight: 700;
   color: var(--primary-color);
-  letter-spacing: -0.03em; /* Tighter for numbers */
+  letter-spacing: -0.03em;
 }
 
 .balance-item p {
-  margin-bottom: var(--spacing-unit); /* Space below label */
+  margin-bottom: var(--spacing-unit);
   color: var(--text-color-medium);
   font-size: 0.95em;
 }
 
 /* --- 7. Log List --- */
 #logList {
-  max-height: 380px; /* Slightly taller */
+  max-height: 380px;
   overflow-y: auto;
-  background-color: var(--card-background); /* Consistent card background */
-  padding: calc(var(--spacing-unit) * 2); /* 16px */
+  background-color: var(--card-background);
+  padding: calc(var(--spacing-unit) * 2);
   border-radius: var(--border-radius-medium);
   border: 1px solid var(--border-color-light);
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.03); /* Subtle inner shadow */
-  scrollbar-width: thin; /* Firefox scrollbar */
-  scrollbar-color: var(--primary-color) var(--border-color-light); /* Firefox scrollbar color */
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.03);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--border-color-light);
 }
 
 /* Custom scrollbar for Webkit browsers */
@@ -243,22 +242,22 @@ button:active {
 }
 
 .log-entry {
-  background: var(--background-light); /* Lighter background for entries */
-  border-left: 5px solid var(--accent-color); /* Left border for accent */
-  padding: calc(var(--spacing-unit) * 2); /* 16px */
-  margin-bottom: var(--spacing-unit) * 1.5; /* 12px */
-  border-radius: var(--border-radius-small); /* Smaller radius for entries */
+  background: var(--background-light);
+  border-left: 5px solid var(--accent-color);
+  padding: calc(var(--spacing-unit) * 2);
+  margin-bottom: var(--spacing-unit) * 1.5;
+  border-radius: var(--border-radius-small);
   box-shadow: var(--shadow-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: var(--spacing-unit); /* 8px */
+  gap: var(--spacing-unit);
   transition: all var(--transition-speed-fast);
 }
 
 .log-entry:last-child {
-  margin-bottom: 0; /* No margin for the last item */
+  margin-bottom: 0;
 }
 
 .log-entry strong {
@@ -274,24 +273,45 @@ button:active {
 
 /* --- 8. Utility & Placeholder Styles --- */
 .export-button {
-  margin-top: calc(var(--spacing-unit) * 3); /* 24px */
+  margin-top: calc(var(--spacing-unit) * 3);
 }
 
 /* Chart placeholder/actual chart container */
 #expenseChart {
-  max-width: 100%; /* Ensure it's responsive within its container */
-  height: 300px; /* Consistent height */
-  margin: calc(var(--spacing-unit) * 3) auto; /* 24px top/bottom margin */
+  max-width: 100%;
+  height: 300px; /* ستبقى كما هي، لكن الرسم سيعتمد على app.js النقي */
+  margin: calc(var(--spacing-unit) * 3) auto;
+  /* إضافة تأثيرات بصرية بسيطة إذا لم يتم عرض الرسم البياني */
+  background: var(--background-light);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  color: var(--text-color-medium);
+  text-align: center;
+  flex-direction: column;
+}
+#expenseChart::before {
+    content: "لا تتوفر رسومات بيانية"; /* رسالة بديلة لعدم وجود مكتبة */
+    font-size: 1em;
+    margin-bottom: var(--spacing-unit);
+}
+:root.dark-mode #expenseChart {
+    background: var(--background-medium);
+    color: var(--text-color-light);
 }
 
-.dark-mode-toggle { /* Renamed for clarity */
+
+.dark-mode-toggle {
   margin-top: calc(var(--spacing-unit) * 3);
   display: flex;
   justify-content: center;
 }
 
 .dark-mode-toggle button {
-  background-color: var(--text-color-medium); /* Neutral color */
+  background-color: var(--text-color-medium);
   color: white;
   padding: calc(var(--spacing-unit) * 1.5) calc(var(--spacing-unit) * 2);
   border-radius: var(--border-radius-medium);
@@ -300,17 +320,17 @@ button:active {
 }
 
 :root.dark-mode .dark-mode-toggle button {
-  background-color: var(--text-color-light); /* Lighter in dark mode */
-  color: var(--text-color-dark); /* Darker text in dark mode for contrast */
+  background-color: var(--text-color-light);
+  color: var(--text-color-dark);
 }
 
 .calendar-placeholder {
-  background: #FFF8E1; /* Lighter, warmer yellow */
+  background: #FFF8E1;
   padding: calc(var(--spacing-unit) * 3);
   border-radius: var(--border-radius-large);
   text-align: center;
-  color: #E65100; /* Deeper orange text */
-  border: 2px dashed #FFB300; /* More vibrant dashed border */
+  color: #E65100;
+  border: 2px dashed #FFB300;
   font-size: 1.1em;
   font-weight: 500;
   margin-top: calc(var(--spacing-unit) * 3);
@@ -336,13 +356,13 @@ button:active {
     padding: calc(var(--spacing-unit) * 2);
   }
   .balance-grid {
-    grid-template-columns: 1fr; /* Stack items on smaller screens */
+    grid-template-columns: 1fr;
   }
   .balance-item {
     padding: calc(var(--spacing-unit) * 2.5);
   }
   button {
-    width: 100%; /* Full width buttons on small screens */
+    width: 100%;
     font-size: 1.1em;
     padding: var(--button-padding-y) var(--button-padding-x);
   }
@@ -364,4 +384,4 @@ button:active {
     flex-direction: column;
     align-items: flex-start;
   }
-}
+  }
