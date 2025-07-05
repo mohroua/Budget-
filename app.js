@@ -1,7 +1,8 @@
 // Register Service Worker for PWA capabilities
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
+    // تأكد من أن المسار هنا يطابق اسم ملف Service Worker الخاص بك
+    navigator.serviceWorker.register('/sw.js')
       .then(registration => {
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
       })
@@ -221,6 +222,16 @@ function exportToPDF() {
     ]);
   });
 
+  // إضافة دعم للخطوط العربية
+  // هذا يتطلب تضمين خط عربي في jsPDF أو استخدام خطوط يدعمها مسبقًا مثل 'Amiri'
+  // أو إضافة خطوط مخصصة باستخدام addFont
+  // للمثال، سنستخدم خط Helvetica افتراضياً، ولكنه قد لا يدعم جميع الحروف العربية بشكل صحيح
+  // للحصول على دعم أفضل للعربية، قد تحتاج إلى:
+  // 1. تنزيل خط يدعم العربية (مثل Arial Unicode MS أو Noto Sans Arabic)
+  // 2. تحويله إلى صيغة base64
+  // 3. إضافة الخط يدويا إلى jsPDF: doc.addFileToVFS('Amiri-Regular.ttf', '...'); doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+  // 4. استخدام الخط: doc.setFont('Amiri');
+  // حالياً، سنبقى مع Helvetica مع العلم بحدود دعمه للعربية.
   doc.setFont("helvetica", "bold");
   doc.text("سجل المصروفات", doc.internal.pageSize.width / 2, 20, { align: "center" });
 
@@ -229,7 +240,7 @@ function exportToPDF() {
     head: [tableColumn],
     body: tableRows,
     styles: {
-      font: "helvetica",
+      font: "helvetica", // قد تحتاج إلى تغيير هذا الخط لخط يدعم العربية بشكل كامل
       fontSize: 10,
       halign: 'right' // Align text to right for Arabic
     },
@@ -273,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Save dark mode preference
 document.documentElement.addEventListener('transitionend', (e) => {
+    // تأكد أن هذا الحدث خاص بتغيير الخلفية، لتجنب تشغيله عند انتقال خصائص أخرى
     if (e.propertyName === 'background-color' && e.target === document.documentElement) {
         if (document.documentElement.classList.contains('dark-mode')) {
             localStorage.setItem('darkMode', 'enabled');
