@@ -7,7 +7,7 @@ const urlsToCache = [
   "fontawesome/css/all.min.css",
   "fontawesome/webfonts/fa-solid-900.woff2",
   "fontawesome/webfonts/fa-regular-400.woff2",
-  "fonts/Cairo.woff2",
+  "fonts/Cairo-Black.woff2",
   "libs/chart.min.js",
   "libs/jspdf.umd.min.js"
 ];
