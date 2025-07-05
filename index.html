@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>إدارة راتبي</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  <link rel="preload" href="fonts/Cairo.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+  <h1>مرحبًا بك في تطبيق إدارة راتبي</h1>
+
+  <!-- رسومات بيانية -->
+  <canvas id="expensesChart" width="400" height="200"></canvas>
+
+  <!-- سكريبتات -->
+  <script src="libs/chart.min.js"></script>
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "إدارة راتبي",
+  "short_name": "إدارة راتبي",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#34A853", "icons": [
+    {
+       "src": "icons/icon-192x192.png", "sizes": "192x192",
+       "type": "image/png"
+    },
+    {
+       "src": "icons/401751295182.png",
+       "sizes": "512x512",
+       "type": "image/png"
+    },
+    {
+      "src": "icons/401751295234.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
