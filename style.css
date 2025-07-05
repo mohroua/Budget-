@@ -1,60 +1,205 @@
-/* ==== تحسينات عصرية إضافية دون المساس بالمحتوى ==== */
+/* تصميم عصري وأنيق لتطبيق PWA "إدارة راتبي" */
 
-/* تأثير زجاجي بسيط على البطاقات */
+:root {
+  --primary-color: #34A853;
+  --primary-dark: #2C8C46;
+  --accent-color: #4285F4;
+  --background-color: #F5F7FA;
+  --card-background: #FFFFFF;
+  --text-color: #222;
+  --light-text-color: #666;
+  --border-color: #DDD;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --border-radius: 18px;
+  --input-border-radius: 12px;
+  --button-padding: 14px 22px;
+  --transition-speed: 0.3s ease;
+}
+
+:root.dark-mode {
+  --background-color: #121212;
+  --card-background: #1E1E1E;
+  --text-color: #EEE;
+  --light-text-color: #AAA;
+  --border-color: #333;
+  --shadow-light: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+}
+
 .card {
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  background-color: rgba(255, 255, 255, 0.85); /* مع شفافية بسيطة */
+  background: var(--card-background);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+  width: 100%;
+  max-width: 560px;
+  margin-bottom: 24px;
+  transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 }
 
-:root.dark-mode .card {
-  background-color: rgba(45, 45, 68, 0.85); /* خلفية شفافة داكنة */
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  font-size: 1em;
+  color: var(--text-color);
+  background-color: #FAFAFA;
+  border: 1px solid var(--border-color);
+  border-radius: var(--input-border-radius);
+  transition: all var(--transition-speed);
 }
 
-/* تأثير دخول خفيف على كل card */
-.card {
-  animation: fadeUp 0.4s ease-in-out;
+input:focus, select:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 168, 83, 0.15);
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--button-padding);
+  font-size: 1.1em;
+  border: none;
+  border-radius: var(--input-border-radius);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-/* تحسين زر الوضع الليلي */
+button:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.balance-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.balance-item {
+  flex: 1;
+  min-width: 140px;
+  background: linear-gradient(135deg, #E8F5E9, #D4EDDA);
+  padding: 18px;
+  border-radius: 14px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--text-color);
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+  transition: background var(--transition-speed);
+}
+
+:root.dark-mode .balance-item {
+  background: linear-gradient(135deg, #2D2D44, #3A3A50);
+  color: var(--text-color);
+}
+
+.balance-item span {
+  margin-top: 8px;
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+#logList {
+  max-height: 280px;
+  overflow-y: auto;
+  background-color: var(--card-background);
+  padding: 12px;
+  border-radius: var(--input-border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.log-entry {
+  background: var(--background-color);
+  border-right: 5px solid var(--accent-color);
+  padding: 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.log-entry strong {
+  color: var(--primary-color);
+}
+
+.export-button {
+  margin-top: 15px;
+}
+
+#expenseChart {
+  max-width: 380px;
+  height: 380px;
+  margin: auto;
+}
+
 .dark-toggle button {
-  background-color: var(--accent-color);
-  box-shadow: 0 6px 18px rgba(66, 133, 244, 0.2);
+  background-color: #444;
+  color: white;
 }
 
-.dark-toggle button:hover {
-  background-color: #3367D6;
+:root.dark-mode .dark-toggle button {
+  background-color: #888;
+  color: #111;
 }
 
-/* إضافة ظل داخلي عند التركيز */
-input:focus,
-select:focus {
-  box-shadow: 0 0 0 4px rgba(66, 133, 244, 0.2), 0 0 4px rgba(0, 0, 0, 0.1);
+.calendar-placeholder {
+  background: #FFF3E0;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  color: #BF360C;
+  border: 2px dashed #FFC107;
 }
 
-/* تأثير ضغط صغير عند الضغط على البطاقات */
-.card:active {
-  transform: scale(0.98);
-  transition: transform 0.15s ease;
+:root.dark-mode .calendar-placeholder {
+  background: #3A2B00;
+  color: #FFD700;
+  border-color: #FFA500;
 }
 
-/* تحسين مظهر الخطوط في الوضع الداكن */
-:root.dark-mode body {
-  text-shadow: 0 0 0.5px rgba(255, 255, 255, 0.05);
-}
-
-/* جعل النص أكثر نعومة في الهواتف */
-body, input, button, select {
-  -webkit-tap-highlight-color: transparent;
+@media (max-width: 600px) {
+  .balance-grid {
+    flex-direction: column;
+  }
+  h1 {
+    font-size: 2em;
+  }
 }
